@@ -1,57 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import CreateGist from "./components/CreateGist/CreateGist";
+import GistList from "./components/GistList/GistList";
+import Header from "./components/Header/Header";
+import UserProfile from "./components/UserProfile/UserProfile";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import GistDetail from "./components/GistDetail/GistDetail";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import GistToolbar from "./components/GistToolbar/GistToolbar";
+
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      light: "#def5ec",
+      main: "#5acba1",
+      dark: "darkgray",
+      contrastText: "#fff",
+      medium: "lightgray",
+      links: "#1a7eff",
+    },
+    secondary: {
+      light: "#ff7961",
+      main: "#1a7eff",
+      dark: "#ba000d",
+      contrastText: "#000",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <ThemeProvider theme={customTheme}>
+      <Router>
+        <div className="App">
+          <Header />
+          <Switch>
+            <Route path="/gists/:page" exact component={GistList} />
+            <Route path="/gist-details/:id" component={GistDetail} />
+            <Route path="/gist-toolbar" exact component={GistToolbar} />
+            <PrivateRoute
+              path={["/create-gist", "/update-gist/:id"]}
+              component={CreateGist}
+            />
+            <Route
+              exact
+              path={["/profile/:username", "/profile/:username/:type"]}
+              component={UserProfile}
+            />
+            {/* <Route path="/gists/:username" exact component={UserProfile} /> */}
+          </Switch>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

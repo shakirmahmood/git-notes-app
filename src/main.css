@@ -1,0 +1,53 @@
+.font-size-10 {
+  font-size: 10px;
+}
+
+.font-size-12 {
+  font-size: 12px;
+}
+
+.font-size-15 {
+  font-size: 15px;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.lightgray {
+  color: lightgray;
+}
+
+.primary-color {
+  color: #5acba1;
+}
+
+.secondary-color {
+  color: #1a7eff;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.pointer-disabled {
+  pointer-events: none;
+}
+
+.star-fork-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.gist-toolbar {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #1a7eff;
+  margin-right: 10px;
+}
