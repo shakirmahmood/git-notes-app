@@ -67,11 +67,10 @@ function Login() {
           clientId={client_id}
           onSuccess={onSuccessGithub}
           buttonText="LOGIN"
-          className="git-login"
+          className={`git-login ${classes.loginBtn}`}
           valid={true}
           redirectUri={redirect_uri}
           scope="gist"
-          className={classes.loginBtn}
         />
       ) : (
         <ProfileMenu />

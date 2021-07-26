@@ -18,7 +18,7 @@ export default function GistHeader(props) {
         <img className="profile-pic" src={profilePic} alt="A person" />
         <div>
           <div>
-            <a className="link" href={`/profile/${username}`}>
+            <a className="link" href={`/profile/${username}/1`}>
               {username}
             </a>{" "}
             /{" "}

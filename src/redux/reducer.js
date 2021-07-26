@@ -3,7 +3,10 @@ import * as actionTypes from "./actionTypes";
 const initialState = {
   searchedText: "",
   pageNumber: 1,
-  starred: false,
+  viewType: "list",
+  username: null,
+  profilePic: null,
+  profileUrl: null,
 };
 
 export function reducer(state = initialState, action) {
@@ -13,11 +16,7 @@ export function reducer(state = initialState, action) {
         ...state,
         searchedText: action.payload,
       };
-    case actionTypes.gistOpened:
-      return {
-        ...state,
-        selectedGist: action.payload,
-      };
+
     case actionTypes.userLoggedIn:
       return {
         ...state,
@@ -32,10 +31,15 @@ export function reducer(state = initialState, action) {
         profilePic: null,
         profileUrl: null,
       };
-    case actionTypes.changePage:
+    case actionTypes.pageChanged:
       return {
         ...state,
         pageNumber: action.payload,
+      };
+    case actionTypes.viewChanged:
+      return {
+        ...state,
+        viewType: action.payload,
       };
     default:
       return state;

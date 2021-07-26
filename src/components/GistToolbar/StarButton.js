@@ -1,12 +1,21 @@
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { useEffect, useState } from "react";
+import { fetchResponseText } from "../../utils/utils";
 import useStyles from "./GistToolbar.styles";
 
 function StarButton(props) {
-  const { gistId, color, label, removeGist: unstarGist } = props;
+  const {
+    gistId,
+    color,
+    label,
+    removeGist: unstarGist,
+    username,
+    showStarCount,
+  } = props;
   const [isStarred, setAsStarred] = useState(false);
   const classes = useStyles();
+  const [starsCount, setStarsCount] = useState(undefined);
 
   useEffect(() => {
     fetch(`https://api.github.com/gists/${gistId}/star`, {
@@ -17,11 +26,23 @@ function StarButton(props) {
       },
     })
       .then((result) => {
-        setAsStarred(result.status === 204 ? true : false);
+        setAsStarred(result.status === 204);
       })
       .catch(() => {
         setAsStarred(false);
       });
+    if (showStarCount) {
+      fetchResponseText(
+        `https://cors-anywhere.herokuapp.com/https://gist.github.com/${username}/${gistId}`
+      ).then((response) => {
+        const str = response.substring(
+          response.indexOf("social-count") + 26,
+          response.indexOf("social-count") + 40
+        );
+        const starCount = str.substring(0, str.indexOf("users")).trim();
+        setStarsCount(starCount);
+      });
+    }
   }, [gistId]);
 
   function giveStar() {
@@ -58,7 +79,6 @@ function StarButton(props) {
       })
       .catch(() => setAsStarred(false));
   }
-
   return (
     <span onClick={giveStar} className={`${classes.btn} ${classes[color]}`}>
       {" "}
@@ -68,6 +88,7 @@ function StarButton(props) {
         <StarBorderIcon className={classes.icon} />
       )}
       {label && <span>{label}</span>}
+      {showStarCount && <span className={classes.count}>{starsCount}</span>}
     </span>
   );
 }

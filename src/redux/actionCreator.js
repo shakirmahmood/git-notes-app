@@ -5,11 +5,6 @@ export const searchGist = (searchedText) => ({
   payload: searchedText,
 });
 
-export const openGist = (selectedGist) => ({
-  type: actionTypes.gistOpened,
-  payload: selectedGist,
-});
-
 export const userLogIn = (username, profilePic, profileUrl) => ({
   type: actionTypes.userLoggedIn,
   payload: {
@@ -24,6 +19,11 @@ export const userSignOut = () => ({
 });
 
 export const changePage = (pageNumber) => ({
-  type: actionTypes.changePage,
+  type: actionTypes.pageChanged,
   payload: pageNumber,
+});
+
+export const changeView = (viewType) => ({
+  type: actionTypes.viewChanged,
+  payload: viewType,
 });

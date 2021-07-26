@@ -1,14 +1,16 @@
 import React from "react";
-import CreateGist from "./components/CreateGist/CreateGist";
-import GistList from "./components/GistList/GistList";
+import CreateGist from "./pages/CreateGist/CreateGist";
+import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
-import UserProfile from "./components/UserProfile/UserProfile";
+import UserProfile from "./pages/UserProfile/UserProfile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import GistDetail from "./components/GistDetail/GistDetail";
+import GistDetail from "./pages/GistDetail/GistDetail";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import GistToolbar from "./components/GistToolbar/GistToolbar";
+import GistCard from "./components/GistCard/GistCard";
+import { NoResultsFound } from "./components/NoResultsFound/NoResultsFound";
+import { PageNotFound } from "./components/NoResultsFound/PageNotFound";
 
 const customTheme = createTheme({
   palette: {
@@ -36,19 +38,23 @@ function App() {
         <div className="App">
           <Header />
           <Switch>
-            <Route path="/gists/:page" exact component={GistList} />
+            <Route path="/gists/:page" exact component={Home} />
+            <Route path="/no-results" exact component={NoResultsFound} />
             <Route path="/gist-details/:id" component={GistDetail} />
-            <Route path="/gist-toolbar" exact component={GistToolbar} />
+            <Route path="/gist-card" exact component={GistCard} />
             <PrivateRoute
               path={["/create-gist", "/update-gist/:id"]}
               component={CreateGist}
             />
             <Route
               exact
-              path={["/profile/:username", "/profile/:username/:type"]}
+              path={[
+                "/profile/:username/:page",
+                "/profile/:username/:type/:page",
+              ]}
               component={UserProfile}
             />
-            {/* <Route path="/gists/:username" exact component={UserProfile} /> */}
+            <Route component={PageNotFound} />
           </Switch>
         </div>
       </Router>

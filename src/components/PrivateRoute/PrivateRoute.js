@@ -1,4 +1,4 @@
-import GistList from "../GistList/GistList";
+import Home from "../../pages/Home/Home";
 import { Route } from "react-router-dom";
 
 export default function PrivateRoute({ path, component }) {
@@ -7,7 +7,7 @@ export default function PrivateRoute({ path, component }) {
     <Route
       exact
       path={isAccessible ? path : "/"}
-      component={isAccessible ? component : GistList}
+      component={isAccessible ? component : Home}
     />
   );
 }

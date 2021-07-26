@@ -5,8 +5,17 @@ import DeleteButton from "./DeleteButton";
 import useStyles from "./GistToolbar.styles";
 
 export default function GistToolbar(props) {
-  const { gistId, showLabel, color, isEditable, username, type, removeGist } =
-    props;
+  const {
+    gistId,
+    showLabel,
+    color,
+    isEditable,
+    username,
+    type,
+    removeGist,
+    forksCount,
+    showStarCount,
+  } = props;
   const { toolbar } = useStyles();
 
   return (
@@ -33,12 +42,15 @@ export default function GistToolbar(props) {
         color={color}
         gistId={gistId}
         removeGist={removeGist}
+        username={username}
+        showStarCount={showStarCount}
       />
 
       <ForkButton
         label={showLabel ? "Fork" : null}
         color={color}
         gistId={gistId}
+        forksCount={forksCount}
       />
     </div>
   );

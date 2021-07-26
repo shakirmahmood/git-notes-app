@@ -17,7 +17,7 @@ export default function DeleteButton(props) {
       },
     };
     fetchResponseText(getGistByIdEP(gistId), requestBody)
-      .then((data) => {
+      .then(() => {
         removeGist();
       })
       .catch((error) => {

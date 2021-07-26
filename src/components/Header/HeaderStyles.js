@@ -54,6 +54,7 @@ export const useStyles = makeStyles((theme) => ({
         width: "20ch",
       },
     },
+    marginRight: 50,
   },
   disabled: {
     cursor: "not-allowed",

@@ -9,7 +9,8 @@ function transformGist(gist) {
   const files = getFilesArray(gist);
   const mainFile = files[0];
   return {
-    ...gist,
+    id: gist.id,
+    description: gist.description,
     profilePic: gist.owner.avatar_url,
     username: gist.owner.login,
     updatedAt: getDate(gist.updated_at),

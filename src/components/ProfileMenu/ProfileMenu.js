@@ -62,16 +62,21 @@ export default function ProfileMenu() {
           Logged in as <br />
           {username}
         </MenuItem>
-        <Link to={`/profile/${username}`} className={classes.removeDecoration}>
+        <Link
+          to={`/profile/${username}/1`}
+          className={classes.removeDecoration}
+        >
           <MenuItem onClick={handleClose}>Your gists</MenuItem>
         </Link>
         <Link
-          to={`/profile/${username}/starred`}
+          to={`/profile/${username}/starred/1`}
           className={classes.removeDecoration}
         >
           <MenuItem onClick={handleClose}>Starred</MenuItem>
         </Link>
-        <MenuItem onClick={handleClose}>Help</MenuItem>
+        <Link to={`/create-gist`} className={classes.removeDecoration}>
+          <MenuItem onClick={handleClose}>Create gist</MenuItem>
+        </Link>
         <MenuItem>
           <a className={classes.removeDecoration} href={profileUrl}>
             Your GitHub profile

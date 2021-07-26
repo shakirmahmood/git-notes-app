@@ -4,13 +4,11 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
-import { changePage } from "../../redux/actionCreator";
 import useStyles from "./PaginationStyle";
 
 export default function Pagination(props) {
-  const { pageNo } = props;
+  const { pageNo, changePage, pageSize } = props;
   const [pageNumber, setPageNumber] = useState(1);
 
   const classes = useStyles();
@@ -19,14 +17,12 @@ export default function Pagination(props) {
     setPageNumber(pageNo);
   }, [pageNo]);
 
-  const dispatch = useDispatch();
-
   function prevPage() {
-    if (pageNo > 1) dispatch(changePage(pageNo - 1));
+    changePage(pageNo - 1);
   }
 
   function nextPage() {
-    dispatch(changePage(pageNo + 1));
+    changePage(pageNo + 1);
   }
 
   function changePageNumber(event) {
@@ -34,7 +30,7 @@ export default function Pagination(props) {
   }
 
   function jumpToPage(event) {
-    if (event.key === "Enter") dispatch(changePage(event.target.value));
+    if (event.key === "Enter") changePage(event.target.value);
   }
 
   return (
@@ -57,16 +53,25 @@ export default function Pagination(props) {
           onChange={changePageNumber}
           onKeyDown={jumpToPage}
         ></input>
-        <span>of 14</span>
-        <ArrowBackIosIcon
-          className={[classes.prev, classes.paginationBtns]}
-          onClick={prevPage}
-          style={pageNo > 1 ? { cursor: "pointer" } : { pointerEvent: "none" }}
-        />
-        <ArrowForwardIosIcon
-          className={[classes.next, classes.paginationBtns]}
-          onClick={nextPage}
-        />
+        <span>
+          {pageNo * pageSize - (pageSize - 1)}-{pageNo * pageSize} results
+        </span>
+        <span
+          style={pageNo > 1 ? { cursor: "pointer" } : { cursor: "not-allowed" }}
+        >
+          <ArrowBackIosIcon
+            className={`${classes.prev} ${classes.paginationBtns}`}
+            onClick={prevPage}
+            style={pageNo > 1 ? {} : { pointerEvents: "none" }}
+            disabled={pageNo > 1 ? false : true}
+          />
+        </span>
+        <span>
+          <ArrowForwardIosIcon
+            className={`${classes.next} ${classes.paginationBtns}`}
+            onClick={nextPage}
+          />
+        </span>
       </div>
     </div>
   );

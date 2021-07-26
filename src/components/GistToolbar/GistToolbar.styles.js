@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: 5,
   },
+  count: {
+    border: `1px solid ${theme.palette.primary.medium}`,
+    padding: "0px 10px 2px",
+    borderRadius: 5,
+    marginLeft: 5,
+  },
 }));
 
 export default useStyles;

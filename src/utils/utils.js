@@ -1,9 +1,15 @@
 export async function fetchAPIData(url = "", data = {}) {
-  return await fetch(url, data).then((response) => response.json());
+  return await fetch(url, data)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
 }
 
 export async function fetchResponseText(url = "", data = {}) {
-  return await fetch(url, data).then((response) => response.text());
+  try {
+    return await fetch(url, data).then((response) => response.text());
+  } catch (error) {
+    return error;
+  }
 }
 
 export function getDate(ISODateString) {

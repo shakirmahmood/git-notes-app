@@ -10,7 +10,7 @@ const createRows = (fileData) => {
     const mapIndexed = addIndex(map);
     return mapIndexed((line, index) => {
       return (
-        <tr key={index}>
+        <tr key={`fileline-${index}`}>
           <td>{index + 1}</td>
           <td>{line}</td>
         </tr>
@@ -20,17 +20,19 @@ const createRows = (fileData) => {
 };
 
 function FileViewer(props) {
-  const { fileData, filename } = props;
+  const { fileData, filename, isHeaderRequired, fileViewerClass } = props;
   const rows = createRows(fileData);
 
   const classes = useStyles();
 
   return (
-    <div className={classes.fileCont}>
-      <div className={classes.fileHeader}>
-        <CodeIcon className={`${classes.codeIcon} font-size-10`} />
-        {filename}
-      </div>
+    <div className={`${fileViewerClass} ${classes.fileCont}`}>
+      {isHeaderRequired && (
+        <div className={classes.fileHeader}>
+          <CodeIcon className={`${classes.codeIcon} font-size-10`} />
+          {filename}
+        </div>
+      )}
       <table className={"font-size-15"}>
         <colgroup>
           <col style={{ width: 80 }} />

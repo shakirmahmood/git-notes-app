@@ -12,12 +12,15 @@ import { searchGist } from "../../redux/actionCreator";
 import Login from "../Login/Login";
 import { useStyles } from "./HeaderStyles";
 
-import image from "../../images/favicon.png";
+import image from "../../images/emumba.png";
+
+import { useLocation } from "react-router";
 
 export default function Header() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const onSearchTextChange = (event) => {
     const searchedText = event.target.value;
@@ -25,12 +28,16 @@ export default function Header() {
       dispatch(searchGist(searchedText));
   };
 
+  const searchEnabled = !pathname.includes("/gists/");
   return (
     <div className={classes.root}>
       <AppBar color="primary" position="static">
         <Toolbar className={classes.toolbar}>
-          <Typography className={classes.title} variant="h4" noWraps>
-            <Link to="/gists/1" classes={classes.removeDecoration}>
+          <Typography className={classes.title} variant="h4">
+            <Link
+              to="/gists/1"
+              style={{ textDecoration: "none", color: "white" }}
+            >
               <img className={classes.favicon} src={image} alt="emumba icon" />
               MUMBA
             </Link>
@@ -39,12 +46,12 @@ export default function Header() {
           <div className={classes.search}>
             <SearchIcon className={classes.searchIcon} />
             <InputBase
-              disabled={window.location.pathname !== "/" ? true : false}
+              disabled={searchEnabled}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
-                disabled: classes.disabled,
+                disabled: searchEnabled ? classes.disabled : "",
               }}
               inputProps={{ "aria-label": "search" }}
               onKeyDown={onSearchTextChange}
